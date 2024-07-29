@@ -25,14 +25,16 @@ const Pokemon = () => {
         const res = await fetch(`${API}?limit=24&offset=${offset}`);
         if (!res.ok) {
           console.log(`Failed to fetch data for page ${i}: ${res.statusText}`);
-          continue; 
+          continue;
         }
         const data = await res.json();
 
         const detailedPokemonData = data.results.map(async (curPokemon) => {
           const res = await fetch(curPokemon.url);
           if (!res.ok) {
-            throw new Error(`Failed to fetch details for ${curPokemon.name}: ${res.statusText}`);
+            throw new Error(
+              `Failed to fetch details for ${curPokemon.name}: ${res.statusText}`
+            );
           }
           const data = await res.json();
           return data;
@@ -40,9 +42,9 @@ const Pokemon = () => {
 
         const detailedResponses = await Promise.all(detailedPokemonData);
         setPokemon(detailedResponses);
-        setTotalPages(27); 
+        setTotalPages(27);
         success = true;
-        break; 
+        break;
       } catch (error) {
         console.log("Error: ", error);
       }
@@ -62,7 +64,7 @@ const Pokemon = () => {
     curPokemon.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  if (load) {
+  if (load && !pokemon.length) {
     return <LoadingSpinner />;
   }
   if (error) {
@@ -76,12 +78,12 @@ const Pokemon = () => {
         <Header search={search} setSearch={setSearch} />
 
         <div>
-          {load && <LoadingSpinner />}
           <ul className="cards">
             {searchData.map((curPokemon) => (
               <PokemonCards key={curPokemon.id} pokemonData={curPokemon} />
             ))}
           </ul>
+          {load && <LoadingSpinner />}
         </div>
         <Pagination
           currentPage={currentPage}

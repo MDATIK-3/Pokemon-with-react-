@@ -1,5 +1,3 @@
-// LoadingSpinner.js
-
 import "./LoadingSpinner.css"; 
 
 const LoadingSpinner = () => {
