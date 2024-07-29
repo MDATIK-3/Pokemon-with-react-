@@ -62,7 +62,7 @@ const Pokemon = () => {
     curPokemon.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  if (load && !pokemon.length) {
+  if (load) {
     return <LoadingSpinner />;
   }
   if (error) {
@@ -76,12 +76,12 @@ const Pokemon = () => {
         <Header search={search} setSearch={setSearch} />
 
         <div>
+          {load && <LoadingSpinner />}
           <ul className="cards">
             {searchData.map((curPokemon) => (
               <PokemonCards key={curPokemon.id} pokemonData={curPokemon} />
             ))}
           </ul>
-          {load && <LoadingSpinner />}
         </div>
         <Pagination
           currentPage={currentPage}
