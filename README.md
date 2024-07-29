@@ -24,7 +24,9 @@ Check out the live version [here](https://pokemon-with-react-five.vercel.app/).
 - **`Pokemon.jsx`**: Fetches data, handles pagination, and search.
 - **`PokemonCards.jsx`**: Displays Pokémon cards.
 - **`Pagination.jsx`**: Manages pagination controls.
-
+- **`LoadingSpinner.jsx`**: Manages LoadingSpinner controls.
+- **`Header.jsx`**: Manages Header controls.
+    
 ## Installation
 
 ```bash
