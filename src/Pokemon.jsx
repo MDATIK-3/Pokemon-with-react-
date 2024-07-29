@@ -17,28 +17,41 @@ const Pokemon = () => {
 
   const fetchPokemon = async (page) => {
     setLoad(true);
-    try {
-      const res = await fetch(`${API}?limit=24&offset=${(page - 1) * 24}`);
-      if (!res.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await res.json();
+    let success = false;
 
-      const detailedPokemonData = data.results.map(async (curPokemon) => {
-        const res = await fetch(curPokemon.url);
+    for (let i = page; i <= 27; i++) {
+      try {
+        const offset = (i - 1) * 24;
+        const res = await fetch(`${API}?limit=24&offset=${offset}`);
+        if (!res.ok) {
+          console.log(`Failed to fetch data for page ${i}: ${res.statusText}`);
+          continue; 
+        }
         const data = await res.json();
-        return data;
-      });
 
-      const detailedResponses = await Promise.all(detailedPokemonData);
-      setPokemon(detailedResponses);
-      setTotalPages(27);
-      setLoad(false);
-    } catch (error) {
-      console.log("Error: ", error);
-      setLoad(false);
+        const detailedPokemonData = data.results.map(async (curPokemon) => {
+          const res = await fetch(curPokemon.url);
+          if (!res.ok) {
+            throw new Error(`Failed to fetch details for ${curPokemon.name}: ${res.statusText}`);
+          }
+          const data = await res.json();
+          return data;
+        });
+
+        const detailedResponses = await Promise.all(detailedPokemonData);
+        setPokemon(detailedResponses);
+        setTotalPages(27); 
+        success = true;
+        break; 
+      } catch (error) {
+        console.log("Error: ", error);
+      }
+    }
+
+    if (!success) {
       setError(true);
     }
+    setLoad(false);
   };
 
   useEffect(() => {
@@ -58,22 +71,25 @@ const Pokemon = () => {
     );
   }
   return (
-    <section className="container">
-      <Header search={search} setSearch={setSearch} />
-      <div>
-        <ul className="cards">
-          {searchData.map((curPokemon) => (
-            <PokemonCards key={curPokemon.id} pokemonData={curPokemon} />
-          ))}
-        </ul>
-        {load && <LoadingSpinner />}
-      </div>
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={setCurrentPage}
-      />
-    </section>
+    <>
+      <section className="container">
+        <Header search={search} setSearch={setSearch} />
+
+        <div>
+          <ul className="cards">
+            {searchData.map((curPokemon) => (
+              <PokemonCards key={curPokemon.id} pokemonData={curPokemon} />
+            ))}
+          </ul>
+          {load && <LoadingSpinner />}
+        </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
+      </section>
+    </>
   );
 };
 
