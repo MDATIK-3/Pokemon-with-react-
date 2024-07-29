@@ -8,6 +8,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     let pages = [];
     for (let i = start; i < start + 5; i++) {
       if (i + 1 <= totalPages) {
+      
         pages.push(i + 1);
       }
     }
