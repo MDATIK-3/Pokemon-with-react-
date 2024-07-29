@@ -1,4 +1,8 @@
+
+
 const Header = ({ search, setSearch }) => {
+  
+
   return (
     <>
       <header>
@@ -12,7 +16,9 @@ const Header = ({ search, setSearch }) => {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
+    
     </>
   );
 };
+
 export default Header;

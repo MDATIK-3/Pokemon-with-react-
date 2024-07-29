@@ -46,7 +46,8 @@ span {
 .container {
   max-width: 152rem;
   margin: auto;
-  }
+  z-index: -111;
+}
 
 .grid-three-cols {
   display: grid;
@@ -95,10 +96,9 @@ input[type="text"] {
 }
 
 .cards {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
   gap: 3.2rem;
 }
 
@@ -109,12 +109,18 @@ input[type="text"] {
     rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   background-color: #fff;
   border-radius: 0.2rem;
-  -webkit-border-radius: 0.2rem;
-  -moz-border-radius: 0.2rem;
-  -ms-border-radius: 0.2rem;
-  -o-border-radius: 0.2rem;
   padding: 1.6rem;
   position: relative;
+  margin: 1.6rem;
+}
+
+@media (min-width: 1657px) {
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .pokemon-card::before {
@@ -219,3 +225,4 @@ pokemon-info {
     cursor: pointer;
   }
 }
+
