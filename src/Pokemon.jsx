@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import "./index.css";
-import LoadingSpinner from "./LoadingSpinner";
-import PokemonCards from "./PokemonCards";
-import Pagination from "./Pagination";
-import Header from "./Header";
+import LoadingSpinner from "./components/LoadingSpinner";
+import PokemonCards from "./components/PokemonCards";
+import Pagination from "./components/Pagination";
+import Header from "./components/Header";
 
 const Pokemon = () => {
   const [pokemon, setPokemon] = useState([]);
@@ -58,25 +58,22 @@ const Pokemon = () => {
     );
   }
   return (
-    <>
-      <section className="container">
-        <Header search={search} setSearch={setSearch} />
-
-        <div>
-          <ul className="cards">
-            {searchData.map((curPokemon) => (
-              <PokemonCards key={curPokemon.id} pokemonData={curPokemon} />
-            ))}
-          </ul>
-          {load && <LoadingSpinner />}
-        </div>
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={setCurrentPage}
-        />
-      </section>
-    </>
+    <section className="container">
+      <Header search={search} setSearch={setSearch} />
+      <div>
+        <ul className="cards">
+          {searchData.map((curPokemon) => (
+            <PokemonCards key={curPokemon.id} pokemonData={curPokemon} />
+          ))}
+        </ul>
+        {load && <LoadingSpinner />}
+      </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
+    </section>
   );
 };
 

@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+import React from "react";
 import "./pagination.css";
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
@@ -15,9 +17,9 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   return (
     <div className="pagination">
       <button
+        className="effect"
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="effect"
       >
         &lt;
       </button>
@@ -47,9 +49,9 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       )}
 
       <button
+        className="effect"
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="effect"
       >
         &gt;
       </button>
