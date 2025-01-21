@@ -1,8 +1,5 @@
-
-
 const Header = ({ search, setSearch }) => {
   
-
   return (
     <>
       <header>

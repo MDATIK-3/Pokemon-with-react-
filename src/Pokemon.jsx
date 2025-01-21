@@ -4,6 +4,7 @@ import LoadingSpinner from "./components/LoadingSpinner";
 import PokemonCards from "./components/PokemonCards";
 import Pagination from "./components/Pagination";
 import Header from "./components/Header";
+import GoogleAd from "./components/GoogleAd";
 
 const Pokemon = () => {
   const [pokemon, setPokemon] = useState([]);
@@ -85,6 +86,7 @@ const Pokemon = () => {
           </ul>
           {load && <LoadingSpinner />}
         </div>
+        <GoogleAd/>
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
